@@ -51,7 +51,7 @@ public class WorkNode extends Thread {
         return this.workId;
     }
 
-    public boolean getFinishedStatus(){
+    public boolean getFinishedStatus() {
         return this.finishedStatus;
     }
 
@@ -93,7 +93,7 @@ public class WorkNode extends Thread {
             Thread.sleep(this.runtime);
             // finish
             System.out.println(this.getRuningMessage() + "end" + "(" + this.runtime + ")");
-            this.finishedStatus=true;
+            this.finishedStatus = true;
             if (null != this.callback) {
                 this.callback.run(this);
             }

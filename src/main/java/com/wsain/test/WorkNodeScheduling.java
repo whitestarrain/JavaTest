@@ -55,10 +55,10 @@ public class WorkNodeScheduling {
             // 队列 阻塞取，每次只获取一个。
             WorkNode runnableNode = runnableNodeQueue.take();
             // 获取节点开始执行
-            if (1 == allNodeNumber - finishCount){
+            if (1 == allNodeNumber - finishCount) {
                 // 最后一个执行节点使用主线程执行。
                 runnableNode.run();
-            }else{
+            } else {
                 runnableNode.start();
             }
         }
