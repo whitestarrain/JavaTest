@@ -29,7 +29,7 @@ public class WorkNodeScheduling {
                 Set<WorkNode> parentNodeSet = parentMap.get(nextNode.getWorkId());
                 for (WorkNode parentNode : parentNodeSet) {
                     if (!parentNode.getFinishedStatus()) {
-                        return;
+                        break;
                     }
                     try {
                         runnableNodeQueue.put(nextNode);
