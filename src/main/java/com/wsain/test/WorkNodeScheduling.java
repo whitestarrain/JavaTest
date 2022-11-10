@@ -19,6 +19,7 @@ public class WorkNodeScheduling {
     public static void main(String[] args) throws InterruptedException {
         Map<String, Set<WorkNode>> parentMap = new HashMap<>();
         BlockingQueue<WorkNode> runnableNodeQueue = new LinkedBlockingQueue<>();
+        Set<String> runNodeSet = new HashSet<>();
         WorkNodeCallback callback = (curWorkNode) -> {
             finishCount++;
             if (null == curWorkNode.nextNodes || 0 == curWorkNode.nextNodes.size()) {
@@ -32,7 +33,13 @@ public class WorkNodeScheduling {
                         break;
                     }
                     try {
-                        runnableNodeQueue.put(nextNode);
+                        synchronized (WorkNodeScheduling.class) {
+                            if (runNodeSet.contains(nextNode.getWorkId())) {
+                                break;
+                            }
+                            runNodeSet.add(nextNode.getWorkId());
+                            runnableNodeQueue.put(nextNode);
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
